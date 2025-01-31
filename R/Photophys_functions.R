@@ -8,20 +8,20 @@
 #' @param frrf A list of frrf data with components for extracting parameters
 #' @return sigma
 #' @export
-get.Sigma <- function(frrf) {
-  Sigma.vector <- rep(NA, length(frrf))  # Initialize with NA
+get.sigma <- function(frrf) {
+  sigma.vector <- rep(NA, length(frrf))  # Initialize with NA
 
   for (i in seq_along(frrf)) {
     if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Sigma" %in% names(frrf[[i]]$A)) {
       index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
 
       if (length(index) > 0) {  # Ensure index exists
-        Sigma.vector[i] <- frrf[[i]]$A$Sigma[index]  # Case-sensitive check
+        fv.fm.vector[i] <- frrf[[i]]$A$Sigma[index]  # Case-sensitive check
       }
     }
   }
 
-  return(Sigma.vector)
+  return(sigma.vector)
 }
 
 #' SigmaPII
@@ -75,11 +75,11 @@ get.tau <- function(frrf) {
   tau.vector <- rep(NA, length(frrf))  # Initialize with NA
 
   for (i in seq_along(frrf)) {
-    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "tau" %in% names(frrf[[i]]$A)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "TauES" %in% names(frrf[[i]]$A)) {
       index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
 
       if (length(index) > 0) {  # Ensure index exists
-        tau.vector[i] <- frrf[[i]]$A$tau[index]  # Case-sensitive check
+        tau.vector[i] <- frrf[[i]]$A$TauES[index]  # Case-sensitive check
       }
     }
   }
