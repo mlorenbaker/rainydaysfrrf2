@@ -6,6 +6,11 @@ Act2Run file:
 load.frrf() function is from Tom Bryce Kelly's TheSource package
 Kelly, T.B., _TheSource: It will hold your beer. Zenodo (2019). DOI: 10.5281/zenodo.3468524 DOI 
 
+Contributors:
+Tom Bryce Kelly (tbrycekell@gmail.com) (Act2Run file loading)
+Jared M Rose (JR19@mailbox.sc.edu) (og code)
+HoWan Chan (howan@rice.edu) (RunSTAF file loading)
+
 # Installing
 ```{r}
 devtools::install_github('mlorenbaker/rainydaysfrrf2')
