@@ -26,11 +26,16 @@ library(readr) #LabSTAF
 ```
 
 # Loading Files
+## Act2Run
 ```{r}
 setwd()
 frrf.files = list.files('folder')
 
 frrf = load.frrf(input.dir = 'folder/', file.names = frrf.files)
+```
+## LabSTAF
+```{r}
+frrf = load.LabSTAF("input directory")
 ```
 
 # Act2Run Files ONLY
