@@ -1,0 +1,19 @@
+Package: rainydaysfrrf2
+Type: Package
+Title: Functions for FRRf data handling
+Version: 0.1.2
+Author:
+    Margaret Loren Baker <mb203@rice.edu>
+Maintainer: Margaret Baker <mb203@rice.edu>
+Description: Custom functions designed for extracting data from Act2Run and RunSTAF FRRf Files.
+    Loading code for Act2Run files from Tom Bryce Kelly. Loading code for RunSTAF files from HoWan Chan.
+    OG code from Jared M Rose. 
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Imports:
+    dplyr
+RoxygenNote: 7.3.2
