@@ -3,4 +3,5 @@
 For RunSTAF files- loading function for all still incoming. Please contact mb203@rice.edu with issues
 # Installing
 devtools::install_github('mlorenbaker/rainydaysfrrf2')
+
 library(rainydaysfrrf2)
