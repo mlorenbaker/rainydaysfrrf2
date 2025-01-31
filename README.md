@@ -19,8 +19,10 @@ library(rainydaysfrrf2)
 ```
 
 ### You also need a separate package
+I didn't add dependencies srry
 ```{r}
-library(dplyr)
+library(dplyr) #Act2Run
+library(readr) #LabSTAF
 ```
 
 # Loading Files
