@@ -8,17 +8,20 @@
 #' @param frrf A list of frrf data with components for extracting parameters
 #' @return sigma
 #' @export
-get.sigma <- function(frrf) {
-  sigma.vector <- rep(NA, length(frrf))  # Initialize with NA
+get.Sigma <- function(frrf) {
+  Sigma.vector <- rep(NA, length(frrf))  # Initialize with NA
 
   for (i in seq_along(frrf)) {
-    index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
-    if (length(index) > 0) {  # Ensure index exists
-      sigma.vector[i] <- frrf[[i]]$A$Sigma[index]
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Sigma" %in% names(frrf[[i]]$A)) {
+      index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
+
+      if (length(index) > 0) {  # Ensure index exists
+        Sigma.vector[i] <- frrf[[i]]$A$Sigma[index]  # Case-sensitive check
+      }
     }
   }
 
-  return(sigma.vector)
+  return(Sigma.vector)
 }
 
 #' SigmaPII
@@ -30,7 +33,7 @@ get.sigmapii <- function(frrf) {
   sigmapii.vector <- rep(NA, length(frrf))  # Initialize with NA
 
   for (i in seq_along(frrf)) {
-    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fv.Fm" %in% names(frrf[[i]]$A)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "SigmaPII" %in% names(frrf[[i]]$A)) {
       index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
 
       if (length(index) > 0) {  # Ensure index exists
@@ -72,7 +75,7 @@ get.tau <- function(frrf) {
   tau.vector <- rep(NA, length(frrf))  # Initialize with NA
 
   for (i in seq_along(frrf)) {
-    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fv.Fm" %in% names(frrf[[i]]$A)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "tau" %in% names(frrf[[i]]$A)) {
       index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
 
       if (length(index) > 0) {  # Ensure index exists
@@ -120,7 +123,7 @@ get.NSV <- function(frrf) {
   NSV.vector <- rep(NA, length(frrf))  # Initialize with NA
 
   for (i in seq_along(frrf)) {
-    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fv.Fm" %in% names(frrf[[i]]$A)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "NSV" %in% names(frrf[[i]]$A)) {
       index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
 
       if (length(index) > 0) {  # Ensure index exists
@@ -141,7 +144,7 @@ get.NPQ <- function(frrf) {
   NPQ.vector <- rep(NA, length(frrf))  # Initialize with NA
 
   for (i in seq_along(frrf)) {
-    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fv.Fm" %in% names(frrf[[i]]$A)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "NPQ" %in% names(frrf[[i]]$A)) {
       index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
 
       if (length(index) > 0) {  # Ensure index exists
@@ -162,7 +165,7 @@ get.Chl <- function(frrf) {
   Chl.vector <- rep(NA, length(frrf))  # Initialize with NA
 
   for (i in seq_along(frrf)) {
-    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fv.Fm" %in% names(frrf[[i]]$A)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Chl" %in% names(frrf[[i]]$A)) {
       index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
 
       if (length(index) > 0) {  # Ensure index exists
@@ -196,7 +199,7 @@ get.Fm <- function(frrf) {
   Fm.vector <- rep(NA, length(frrf))  # Initialize with NA
 
   for (i in seq_along(frrf)) {
-    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fv.Fm" %in% names(frrf[[i]]$A)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fm" %in% names(frrf[[i]]$A)) {
       index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
 
       if (length(index) > 0) {  # Ensure index exists
@@ -217,7 +220,7 @@ get.Fo <- function(frrf) {
   Fo.vector <- rep(NA, length(frrf))  # Initialize with NA
 
   for (i in seq_along(frrf)) {
-    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fv.Fm" %in% names(frrf[[i]]$A)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fo" %in% names(frrf[[i]]$A)) {
       index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
 
       if (length(index) > 0) {  # Ensure index exists
@@ -238,7 +241,7 @@ get.p <- function(frrf) {
   p.vector <- rep(NA, length(frrf))  # Initialize with NA
 
   for (i in seq_along(frrf)) {
-    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fv.Fm" %in% names(frrf[[i]]$A)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "p" %in% names(frrf[[i]]$A)) {
       index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
 
       if (length(index) > 0) {  # Ensure index exists
@@ -259,7 +262,7 @@ get.C <- function(frrf) {
   C.vector <- rep(NA, length(frrf))  # Initialize with NA
 
   for (i in seq_along(frrf)) {
-    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fv.Fm" %in% names(frrf[[i]]$A)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "C" %in% names(frrf[[i]]$A)) {
       index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
 
       if (length(index) > 0) {  # Ensure index exists
@@ -293,7 +296,7 @@ get.QR <- function(frrf) {
   QR.vector <- rep(NA, length(frrf))  # Initialize with NA
 
   for (i in seq_along(frrf)) {
-    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fv.Fm" %in% names(frrf[[i]]$A)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "QR" %in% names(frrf[[i]]$A)) {
       index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
 
       if (length(index) > 0) {  # Ensure index exists
