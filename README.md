@@ -112,7 +112,7 @@ NSV <- get.NSV(frrf)
 file <- get.File(frrf) # Name of file!
 
 # Bind Vectors
-final_data <- rbind(as.data.frame(file, fvfm, NSV))
+final_data <- as.data.frame(cbind(file, fvfm, NSV))
 
 # Export Data
 write.csv(final_data, "export_dir")
