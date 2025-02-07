@@ -16,7 +16,7 @@ get.sigma <- function(frrf) {
       index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
 
       if (length(index) > 0) {  # Ensure index exists
-        fv.fm.vector[i] <- frrf[[i]]$A$Sigma[index]  # Case-sensitive check
+        sigma.vector[i] <- frrf[[i]]$A$Sigma[index]  # Case-sensitive check
       }
     }
   }
@@ -321,4 +321,27 @@ get.JVPIIm <- function(frrf) {
   }
   return(JVPIIm.vector)
 }
+
+#'LabSTAF Fo
+#' @title Extract Fo LabSTAF
+#' @param frrf A list of frrf data with components for extracting parameters
+#' @return Fo
+#' @export
+get.F <- function(frrf) {
+  F.vector <- rep(NA, length(frrf))  # Initialize with NA
+
+  for (i in seq_along(frrf)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fo" %in% names(frrf[[i]]$A)) {
+      index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
+
+      if (length(index) > 0) {  # Ensure index exists
+        Fo.vector[i] <- frrf[[i]]$A$`F`[index]  # Case-sensitive check
+      }
+    }
+  }
+
+  return(F.vector)
+}
+
+
 
