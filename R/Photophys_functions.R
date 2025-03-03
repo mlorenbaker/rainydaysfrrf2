@@ -364,27 +364,3 @@ get.F <- function(frrf) {
 
   return(F.vector)
 }
-
-#'LabSTAF Fv/Fm
-#' @title Extract Fv/Fm LabSTAF
-#' @param frrf A list of frrf data with components for extracting parameters
-#' @return Fq/Fm
-#' @export
-get.F <- function(frrf) {
-  fqfm.vector <- rep(NA, length(frrf))  # Initialize with NA
-
-  for (i in seq_along(frrf)) {
-    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fq/Fm" %in% names(frrf[[i]]$A)) {
-      index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
-
-      if (length(index) > 0) {  # Ensure index exists
-        fqfm.vector[i] <- frrf[[i]]$A$Fq.Fm[index]  # Case-sensitive check
-      }
-    }
-  }
-
-  return(fqfm.vector)
-}
-
-
-
