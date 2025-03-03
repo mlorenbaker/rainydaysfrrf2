@@ -5,19 +5,13 @@
 \title{Extract Fo LabSTAF}
 \usage{
 get.F(frrf)
-
-get.F(frrf)
 }
 \arguments{
 \item{frrf}{A list of frrf data with components for extracting parameters}
 }
 \value{
 Fo
-
-Fq/Fm
 }
 \description{
 LabSTAF Fo
-
-LabSTAF Fv/Fm
 }
