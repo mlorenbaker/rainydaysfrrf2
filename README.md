@@ -19,6 +19,9 @@ Jared M Rose (JR19@mailbox.sc.edu) (og code)
 
 HoWan Chan (howan@rice.edu) (RunSTAF file loading)
 
+#### Last update: 3-3-25 : 
+Fixed LabSTAF functions 'get.F, get.fvfm.LS' and added LabSTAF function 'calc.NPQ'
+
 # Installing
 To install rainydaysfrrf2, please run the following code: 
 ```{r}
