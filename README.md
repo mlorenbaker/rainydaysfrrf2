@@ -20,7 +20,7 @@ Jared M Rose (JR19@mailbox.sc.edu) (og code)
 HoWan Chan (howan@rice.edu) (RunSTAF file loading)
 
 #### Last update: 3-3-25 : 
-Fixed LabSTAF functions 'get.F, get.fvfm.LS' and added LabSTAF function 'calc.NPQ'
+Fixed LabSTAF functions 'get.F, get.fvfm.LS' and added LabSTAF function 'calc.NPQ' and extracting NPQ
 
 # Installing
 To install rainydaysfrrf2, please run the following code: 
@@ -129,5 +129,48 @@ write.csv(final_data, "export_dir")
 
 ```
 
+# Example workflow for LabSTAF data 
+```{r}
 
+devtools::install_github('mlorenbaker/rainydaysfrrf2')
+
+# Load Packages #####
+
+library(rainydaysfrrf2)
+library(readr)
+
+# Load Files #####
+
+frrf = load.LabSTAF("C:/Users/mlorenbaker/Documents/LabSTAF_Test_Files")
+
+# Extract Basic Data #####
+
+File <- get.File(frrf)
+
+Fo <- get.F(frrf)
+
+Fm <- get.Fm(frrf)
+
+FvFm <- get.fvfm.LS(frrf)
+
+Sigma <- get.sigmapii(frrf)
+
+frrf <- calc.NPQ(frrf)
+
+NPQ <- get.NPQ.LS(frrf)
+
+# Bind #####
+
+data <- as.data.frame(cbind(File = File,
+                            Fo = Fo,
+                            Fm = Fm,
+                            Fv.Fm = FvFm,
+                            Sigma = Sigma,
+                            NPQ = NPQ))
+
+# Export #####
+
+write.csv(data, "C:/Users/mlorenbaker/Documents/LabSTAF_Test_Files/Test.data.csv")
+
+```
 
