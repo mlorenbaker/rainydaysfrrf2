@@ -46,11 +46,11 @@ get.sigmapii <- function(frrf) {
 }
 
 #'Fv/Fm
-#' @title Extract Fv/Fm
+#' @title Extract Fv/Fm Act2Run
 #' @param frrf A list of frrf data with components for extracting parameters
 #' @return fv/fm
 #' @export
-get.fv.fm <- function(frrf) {
+get.fvfm <- function(frrf) {
   fv.fm.vector <- rep(NA, length(frrf))  # Initialize with NA
 
   for (i in seq_along(frrf)) {
@@ -65,6 +65,28 @@ get.fv.fm <- function(frrf) {
 
   return(fv.fm.vector)
 }
+
+#'Fv/Fm
+#' @title Extract Fv/Fm LabSTAF
+#' @param frrf A list of frrf data with components for extracting parameters
+#' @return fv/fm
+#' @export
+get.fvfm.LS <- function(frrf) {
+  fqfm.vector <- rep(NA, length(frrf))  # Initialize with NA
+
+  for (i in seq_along(frrf)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fq/Fm" %in% names(frrf[[i]]$A)) {
+      index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
+
+      if (length(index) > 0) {  # Ensure index exists
+        fqfm.vector[i] <- frrf[[i]]$A$`Fq/Fm`[index]  # Case-sensitive check
+      }
+    }
+  }
+
+  return(fqfm.vector)
+}
+
 
 #'Tau
 #' @title Extract Tau
@@ -331,16 +353,37 @@ get.F <- function(frrf) {
   F.vector <- rep(NA, length(frrf))  # Initialize with NA
 
   for (i in seq_along(frrf)) {
-    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fo" %in% names(frrf[[i]]$A)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "F" %in% names(frrf[[i]]$A)) {
       index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
 
       if (length(index) > 0) {  # Ensure index exists
-        Fo.vector[i] <- frrf[[i]]$A$`F`[index]  # Case-sensitive check
+        F.vector[i] <- frrf[[i]]$A$`F`[index]  # Case-sensitive check
       }
     }
   }
 
   return(F.vector)
+}
+
+#'LabSTAF Fv/Fm
+#' @title Extract Fv/Fm LabSTAF
+#' @param frrf A list of frrf data with components for extracting parameters
+#' @return Fq/Fm
+#' @export
+get.F <- function(frrf) {
+  fqfm.vector <- rep(NA, length(frrf))  # Initialize with NA
+
+  for (i in seq_along(frrf)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fq/Fm" %in% names(frrf[[i]]$A)) {
+      index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
+
+      if (length(index) > 0) {  # Ensure index exists
+        fqfm.vector[i] <- frrf[[i]]$A$Fq.Fm[index]  # Case-sensitive check
+      }
+    }
+  }
+
+  return(fqfm.vector)
 }
 
 
