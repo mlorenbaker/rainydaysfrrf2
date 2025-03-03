@@ -82,7 +82,7 @@ This is not an exhaustive list of written functions- just commonly needed exampl
 The below example functions extract 'dark acclimated values', where E = 0
 ```{r}
 # Act2Run and LabSTAF files
-get.fv.fm(frrf)
+get.fvfm(frrf)
 get.Ek(frrf)
 get.alpha(frrf)
 get.JVPIIm(frrf) # maximum JVPII value
@@ -99,6 +99,8 @@ get.F(frrf) # Fo
 get.sigma(frrf) # Sigma
 get.NSV(frrf)
 get.NPQ(frrf)
+get.fvfm.LS(frrf)
+calc.NPQ(frrf)
 
 ```
 ## Using the functions
@@ -107,9 +109,14 @@ To properly extract data, you must use the functions to save data to a vector. T
 Examples:
 ```{r}
 # Extract Data
-fvfm <- get.fv.fm(frrf)
+fvfm <- get.fvfm(frrf) # Act2Run
+fvfm <- get.fvfm.LS(frrf) #LabSTAF
 NSV <- get.NSV(frrf)
 file <- get.File(frrf) # Name of file!
+
+## Werid thing for calculating NPQ with LabSTAF files:
+frrf <- calc.NPQ(frrf)
+## Will append the calculated NPQ into 'frrf[[i]]$A$NPQ.calc'
 
 # Bind Vectors
 final_data <- as.data.frame(cbind(file, fvfm, NSV))
