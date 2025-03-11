@@ -19,8 +19,13 @@ Jared M Rose (JR19@mailbox.sc.edu) (og code)
 
 HoWan Chan (howan@rice.edu) (RunSTAF file loading)
 
-#### Last update: 3-3-25 : 
-Fixed LabSTAF functions 'get.F, get.fvfm.LS' and added LabSTAF function 'calc.NPQ' and extracting NPQ
+#### Last update: 3-10-25 : 
+Added functions to extract LabSTAF file run notes
+
+### Coming soon:
+Calculate JVPII (sigma & absorption method)
+Extract data from .saq LabSTAF files
+Calculate paramters at acclimation light intensity
 
 # Installing
 To install rainydaysfrrf2, please run the following code: 
