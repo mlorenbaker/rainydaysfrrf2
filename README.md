@@ -159,6 +159,16 @@ frrf <- calc.NPQ(frrf)
 
 NPQ <- get.NPQ.LS(frrf)
 
+# Extract file notes #####
+
+blank <- get.Blank(frrf)
+
+proj <- get.Project(frrf)
+
+ref <- get.Reference(frrf)
+
+notes <- get.Notes(frrf)
+
 # Bind #####
 
 data <- as.data.frame(cbind(File = File,
@@ -166,7 +176,11 @@ data <- as.data.frame(cbind(File = File,
                             Fm = Fm,
                             Fv.Fm = FvFm,
                             Sigma = Sigma,
-                            NPQ = NPQ))
+                            NPQ = NPQ,
+                            Blank = blank,
+                            Project = proj,
+                            Reference = ref,
+                            Notes = notes))
 
 # Export #####
 
