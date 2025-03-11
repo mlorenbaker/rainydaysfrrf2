@@ -9,11 +9,11 @@ Functions are contiunously being written and added- if there is something that w
 LabSTAF has several options for data export. Currently, functions are written to accomodate r-PE.csv files only. Should need arise, other file export types can be incorporated. 
 
 Act2Run file:
-load.frrf() function is from Tom Bryce Kelly's TheSource package
+load.frrf() function & modeling functions are from Tom Bryce Kelly's TheSource package
 Kelly, T.B., _TheSource: It will hold your beer. Zenodo (2019). DOI: 10.5281/zenodo.3468524 DOI 
 
 Contributors:
-Tom Bryce Kelly (tbrycekell@gmail.com) (Act2Run file loading)
+Tom Bryce Kelly (tbrycekell@gmail.com) (Act2Run file loading & modeling functions)
 
 Jared M Rose (JR19@mailbox.sc.edu) (og code)
 
