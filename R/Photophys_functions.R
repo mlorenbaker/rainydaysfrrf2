@@ -364,3 +364,19 @@ get.F <- function(frrf) {
 
   return(F.vector)
 }
+
+
+#'LabSTAF NPQ
+#' @title extract calculated NPQ from LabSTAF
+#' @param frrf A list of frrf data with components for extracting parameters
+#' @return NPQ labSTAF
+#' @export
+get.NPQ.LS <- function(frrf) {
+  NPQ.vector <- rep(NA, length(frrf))
+
+  for (i in seq_along(frrf)) {
+    NPQ.vector[i] <- frrf[[i]]$A$NPQ.calc[3]
+
+  }
+  return(NPQ.vector)
+}
