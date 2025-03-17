@@ -19,13 +19,14 @@ Jared M Rose (JR19@mailbox.sc.edu) (og code)
 
 HoWan Chan (howan@rice.edu) (RunSTAF file loading)
 
-#### Last update: 3-10-25 : 
-Added functions to extract LabSTAF file run notes
+#### Last update: 3-15-25 : 
+Added Match.sheet functions- match metadata directly to FRRf files 
 
 ### Coming soon:
 Calculate JVPII (sigma & absorption method)
 Extract data from .saq LabSTAF files
 Calculate paramters at acclimation light intensity
+Match metadata from closest time
 
 # Installing
 To install rainydaysfrrf2, please run the following code: 
@@ -131,6 +132,41 @@ final_data <- as.data.frame(cbind(file, fvfm, NSV))
 
 # Export Data
 write.csv(final_data, "export_dir")
+
+```
+
+# Using a Match sheet
+
+A Match.sheet is a .csv file of metadata. It's linked to the FRRf data through the file name. This metadata can include anything you want- treatment, incubator, notes, etc. It's a way of helping organize your FRRf files in your experiment. To use it currently, you need to have the exact file name associated with the specific metadata. Usually when we take measurements, we write down the time of measurement and the culture it came from. The files save automatically, all saved in the same naming pattern (Act2Run: 'YYYYMMDD-hhmmss.csv', LabSTAF: 'YYMMDD-hhmm rP-E.csv').These functions should work for Act2Run and LabSTAF files. Here is a step by step protocol for proper organization: 
+1. Copy desired FRRf files into a new folder
+2. Sort by file name
+3. Highlight all .csv files
+4. Copy file path
+5. Paste into .csv file (ensure that metadata is sorted by Datetime)
+6. Sort the new file path column
+7. Highlight file path column --> Text-to-columns --> Deliminated --> '/' --> Finish
+8. Delete unnecessary columns from the file path
+9. Check that the file name matches the Datetime correctly
+
+Examples of columns that could be included in a Match.sheet, and how they would need to be named in the .csv: 
+1. File.name
+2. Datetime
+3. Treatment
+4. Incubator
+5. Iron
+6. Condition
+
+## Using the Match.sheet
+```{r}
+Match.sheet <- read.csv(file = "Match.sheet.csv", header = T, sep = ",")
+
+# File matching
+
+frrf <- match.files(frrf, Match.sheet)
+
+# Data extraction
+
+get.Treatment(frrf)
 
 ```
 
