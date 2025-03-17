@@ -63,8 +63,19 @@ Ex: My frrf files are in the directory "C:/Users/mlorenbaker/Documents/FRRf/Data
 I would set my wd to "C:/Users/mlorenbaker/Documents/FRRf/Data"
 In the code, replace "input directory" with this working directory path
 Ex: frrf = load.labSTAF("C:/Users/mlorenbaker/Documents/FRRf/Data")
+
+### Update as of 3-15-25: 
+The rP-E files are structured differently based on your specific settings. The loading function for these files is now custom to the person- so please contact mb203@rice.edu to have a function written for your files. Hopefully this is not a permanent need- MLB is working on analysis of Saq files, which seem more standard. 
+
+
 ```{r}
-frrf = load.LabSTAF("input directory")
+frrf = load.LabSTAF_DJB("input directory")
+
+frrf = load.LabSTAF_ASLO25("input directory")
+
+# The 'DJB' here is the initials of the person this specific function is written for
+# The 'ASLO25' is an example of the specific function written for a project of mine
+
 ```
 
 # Act2Run Files ONLY
