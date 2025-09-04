@@ -18,5 +18,6 @@ Extract Photophys Data from FRRf files
 \details{
 These functions will extract several base parameters of FRRf data
 
+
 Sigma
 }

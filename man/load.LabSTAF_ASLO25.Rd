@@ -7,11 +7,7 @@
 load.LabSTAF_ASLO25(directory)
 }
 \arguments{
-\item{input.dir}{the input directory}
-
-\item{file.names}{the name of the file in the input directory (default will load all files in that directory)}
-
-\item{verbose}{honestly I have no idea this was all Tom}
+\item{directory}{Path to the input directory containing .csv files}
 }
 \description{
 Load LabSTAF

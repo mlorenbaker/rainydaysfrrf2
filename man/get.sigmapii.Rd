@@ -13,5 +13,5 @@ get.sigmapii(frrf)
 sigmaPII
 }
 \description{
-SigmaPII
+SigmaPII LABSTAF
 }

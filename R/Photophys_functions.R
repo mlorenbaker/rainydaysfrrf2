@@ -2,6 +2,8 @@
 #'
 #' These functions will extract several base parameters of FRRf data
 #'
+#'
+# FastOcean Functions #####
 
 #' Sigma
 #' @title Extract Sigma
@@ -24,26 +26,6 @@ get.sigma <- function(frrf) {
   return(sigma.vector)
 }
 
-#' SigmaPII
-#' @title Extract SigmaPII
-#' @param frrf A list of frrf data with components for extracting parameters- LabSTAF
-#' @return sigmaPII
-#' @export
-get.sigmapii <- function(frrf) {
-  sigmapii.vector <- rep(NA, length(frrf))  # Initialize with NA
-
-  for (i in seq_along(frrf)) {
-    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "SigmaPII" %in% names(frrf[[i]]$A)) {
-      index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
-
-      if (length(index) > 0) {  # Ensure index exists
-        sigmapii.vector[i] <- frrf[[i]]$A$SigmaPII[index]  # Case-sensitive check
-      }
-    }
-  }
-
-  return(sigmapii.vector)
-}
 
 #'Fv/Fm
 #' @title Extract Fv/Fm Act2Run
@@ -66,26 +48,6 @@ get.fvfm <- function(frrf) {
   return(fv.fm.vector)
 }
 
-#'Fv/Fm
-#' @title Extract Fv/Fm LabSTAF
-#' @param frrf A list of frrf data with components for extracting parameters
-#' @return fv/fm
-#' @export
-get.fvfm.LS <- function(frrf) {
-  fqfm.vector <- rep(NA, length(frrf))  # Initialize with NA
-
-  for (i in seq_along(frrf)) {
-    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fq/Fm" %in% names(frrf[[i]]$A)) {
-      index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
-
-      if (length(index) > 0) {  # Ensure index exists
-        fqfm.vector[i] <- frrf[[i]]$A$`Fq/Fm`[index]  # Case-sensitive check
-      }
-    }
-  }
-
-  return(fqfm.vector)
-}
 
 
 #'Tau
@@ -296,18 +258,7 @@ get.C <- function(frrf) {
   return(C.vector)
 }
 
-#'File
-#' @title Extract File name
-#' @param frrf A list of frrf data with components for extracting parameters
-#' @return File name
-#' @export
-get.File <- function(frrf) {
-  File.vector <- rep(0, length(frrf))
-  for (i in seq_along(frrf)) {
-    File.vector[i] <- frrf[[i]]$File
-  }
-  return(File.vector)
-}
+
 
 #'QR
 #' @title Extract QR
@@ -331,18 +282,9 @@ get.QR <- function(frrf) {
 }
 
 
-#'JVPIIm
-#' @title Extract JVPIIm
-#' @param frrf A list of frrf data with components for extracting parameters
-#' @return JVPIIm
-#' @export
-get.JVPIIm <- function(frrf) {
-  JVPIIm.vector <- rep(0, length(frrf))
-  for (i in seq_along(frrf)) {
-    JVPIIm.vector[i] <- max(frrf[[i]]$A$JVPII)
-  }
-  return(JVPIIm.vector)
-}
+
+# LabSTAF Functions #####
+
 
 #'LabSTAF Fo
 #' @title Extract Fo LabSTAF
@@ -380,3 +322,167 @@ get.NPQ.LS <- function(frrf) {
   }
   return(NPQ.vector)
 }
+
+#'Fv/Fm
+#' @title Extract Fv/Fm LabSTAF
+#' @param frrf A list of frrf data with components for extracting parameters
+#' @return fv/fm
+#' @export
+get.fvfm.LS <- function(frrf) {
+  fqfm.vector <- rep(NA, length(frrf))  # Initialize with NA
+
+  for (i in seq_along(frrf)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fq_Fm" %in% names(frrf[[i]]$A)) {
+      index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
+
+      if (length(index) > 0) {  # Ensure index exists
+        fqfm.vector[i] <- frrf[[i]]$A$Fq_Fm[index]  # Case-sensitive check
+      }
+    }
+  }
+
+  return(fqfm.vector)
+}
+
+#' SigmaPII LABSTAF
+#' @title Extract SigmaPII
+#' @param frrf A list of frrf data with components for extracting parameters- LabSTAF
+#' @return sigmaPII
+#' @export
+get.sigmapii <- function(frrf) {
+  sigmapii.vector <- rep(NA, length(frrf))  # Initialize with NA
+
+  for (i in seq_along(frrf)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "SigmaPII" %in% names(frrf[[i]]$A)) {
+      index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
+
+      if (length(index) > 0) {  # Ensure index exists
+        sigmapii.vector[i] <- frrf[[i]]$A$SigmaPII[index]  # Case-sensitive check
+      }
+    }
+  }
+
+  return(sigmapii.vector)
+}
+
+#' F LABSTAF
+#' @title Calc and extract Fo
+#' @param frrf A list of frrf data with components for extracting parameters- LabSTAF
+#' @return Fo
+#' @export
+get.F <- function(frrf) {
+  for (j in 1:length(frrf)) {
+    for (i in 1:length(frrf[[j]]$A$E)) {
+      frrf[[j]]$A$Fo[i] <- frrf[[j]]$A$`F`[1] / (frrf[[j]]$A$Fq_Fm[1] + (frrf[[j]]$A$`F`[1]/frrf[[j]]$A$Fm[i]))
+    }
+  }
+  F.vector <- rep(NA, length(frrf))
+  for (i in seq_along(frrf)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fo" %in% names(frrf[[i]]$A)) {
+      index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
+
+      if (length(index) > 0) {  # Ensure index exists
+        F.vector[i] <- frrf[[i]]$A$Fo[index]  # Case-sensitive check
+      }
+    }
+  }
+  return(F.vector)
+}
+
+#' Fv LABSTAF
+#' @title Calc and extract Fv
+#' @param frrf A list of frrf data with components for extracting parameters- LabSTAF
+#' @return Fv
+#' @export
+get.Fv <- function(frrf) {
+  for (j in 1:length(frrf)) {
+    for (i in 1:length(frrf[[j]]$A$E)) {
+      frrf[[j]]$A$Fo[i] <- frrf[[j]]$A$`F`[1] / (frrf[[j]]$A$Fq_Fm[1] + (frrf[[j]]$A$`F`[1]/frrf[[j]]$A$Fm[i]))
+    }
+  }
+
+  for (j in 1:length(frrf)) {
+    for (i in 1:length(frrf[[j]]$A$E)) {
+      frrf[[j]]$A$Fv[i] <- frrf[[j]]$A$Fm[i] - frrf[[j]]$A$Fo[i]
+    }
+  }
+  Fv.vector <- rep(NA, length(frrf))
+  for (i in seq_along(frrf)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "Fv" %in% names(frrf[[i]]$A)) {
+      index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
+
+      if (length(index) > 0) {  # Ensure index exists
+        Fv.vector[i] <- frrf[[i]]$A$Fv[index]  # Case-sensitive check
+      }
+    }
+  }
+  return(Fv.vector)
+}
+
+#' NSV LABSTAF
+#' @title Calc and extract NSV
+#' @param frrf A list of frrf data with components for extracting parameters- LabSTAF
+#' @return NSV
+#' @export
+get.NSV <- function(frrf) {
+  # calc F
+  for (j in 1:length(frrf)) {
+    for (i in 1:length(frrf[[j]]$A$E)) {
+      frrf[[j]]$A$Fo[i] <- frrf[[j]]$A$`F`[1] / (frrf[[j]]$A$Fq_Fm[1] + (frrf[[j]]$A$`F`[1]/frrf[[j]]$A$Fm[i]))
+    }
+  }
+  # calc Fv
+  for (j in 1:length(frrf)) {
+    for (i in 1:length(frrf[[j]]$A$E)) {
+      frrf[[j]]$A$Fv[i] <- frrf[[j]]$A$Fm[i] - frrf[[j]]$A$Fo[i]
+    }
+  }
+  # Calc NSV
+  for (j in 1:length(frrf)) {
+    for (i in 1:length(frrf[[j]]$A$E)) {
+      frrf[[j]]$A$NSV[i] <- frrf[[j]]$A$Fo[i] / frrf[[j]]$A$Fv[i]
+    }
+  }
+  NSV.vector <- rep(NA, length(frrf))
+  for (i in seq_along(frrf)) {
+    if (!is.null(frrf[[i]]$A) && "E" %in% names(frrf[[i]]$A) && "NSV" %in% names(frrf[[i]]$A)) {
+      index <- which(frrf[[i]]$A$E == 0)  # Find index where E == 0
+
+      if (length(index) > 0) {  # Ensure index exists
+        NSV.vector[i] <- frrf[[i]]$A$NSV[index]  # Case-sensitive check
+      }
+    }
+  }
+  return(NSV.vector)
+
+}
+
+# Universal Functions #####
+
+#'File
+#' @title Extract File name
+#' @param frrf A list of frrf data with components for extracting parameters
+#' @return File name
+#' @export
+get.File <- function(frrf) {
+  File.vector <- rep(0, length(frrf))
+  for (i in seq_along(frrf)) {
+    File.vector[i] <- frrf[[i]]$File
+  }
+  return(File.vector)
+}
+
+
+#'JVPIIm
+#' @title Extract JVPIIm
+#' @param frrf A list of frrf data with components for extracting parameters
+#' @return JVPIIm
+#' @export
+get.JVPIIm <- function(frrf) {
+  JVPIIm.vector <- rep(0, length(frrf))
+  for (i in seq_along(frrf)) {
+    JVPIIm.vector[i] <- max(frrf[[i]]$A$JVPII)
+  }
+  return(JVPIIm.vector)
+}
+

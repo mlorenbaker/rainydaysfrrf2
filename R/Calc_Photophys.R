@@ -30,3 +30,18 @@ calc.NPQ <- function(frrf) {
   }
   return(frrf)
 }
+
+#' Calc ETR_RCII
+#' @title Calculate ETR LabSTAF
+#' @param frrf A list of frrf data with components for extracting parameters
+#' @return ETR
+#' @export
+calc.ETR_RCII <- function(frrf) {
+  for(j in 1:length(frrf)) {
+    for(i in 1:length(frrf[[j]]$A$E)) {
+      frrf[[j]]$A$ETR[i] <- frrf[[j]]$A$E[i] * frrf[[j]]$A$SigmaPII[1] *
+        (frrf[[j]]$A$Fq_Fm[i]/frrf[[j]]$A$Fq_Fm[1]) * 1 * 0.6022
+    }
+  }
+  return(frrf)
+}

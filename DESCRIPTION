@@ -6,14 +6,16 @@ Author:
     Margaret Loren Baker <mb203@rice.edu>
 Maintainer: Margaret Baker <mb203@rice.edu>
 Description: Custom functions designed for extracting data from Act2Run and RunSTAF FRRf Files.
-    Loading code for Act2Run files from Tom Bryce Kelly. Loading code for RunSTAF files from HoWan Chan.
+    Loading code for Act2Run files from Tom Bryce Kelly.
     OG code from Jared M Rose. 
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Imports:
-    dplyr
+    dplyr,
+    stringr,
+    readr
 RoxygenNote: 7.3.2

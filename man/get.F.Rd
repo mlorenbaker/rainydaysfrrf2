@@ -5,13 +5,19 @@
 \title{Extract Fo LabSTAF}
 \usage{
 get.F(frrf)
+
+get.F(frrf)
 }
 \arguments{
-\item{frrf}{A list of frrf data with components for extracting parameters}
+\item{frrf}{A list of frrf data with components for extracting parameters- LabSTAF}
 }
 \value{
+Fo
+
 Fo
 }
 \description{
 LabSTAF Fo
+
+F LABSTAF
 }
