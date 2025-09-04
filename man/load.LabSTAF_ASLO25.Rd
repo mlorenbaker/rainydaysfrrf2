@@ -7,7 +7,8 @@
 load.LabSTAF_ASLO25(directory)
 }
 \arguments{
-\item{directory}{Path to the input directory containing .csv files}
+\item{directory}{Path to the input directory containing .csv files
+#' @importFrom stats setNames}
 }
 \description{
 Load LabSTAF

@@ -3,6 +3,8 @@
 #' @title Load FRRF Datafiles - ASLO 2025 MLB
 #' @author HoWan Chan
 #' @param directory Path to the input directory containing .csv files
+#' #' @importFrom stats setNames
+#' @importFrom readr read_lines
 #' @export
 load.LabSTAF_ASLO25 <- function(directory) {
   result <- list()

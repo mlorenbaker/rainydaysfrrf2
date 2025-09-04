@@ -2,7 +2,8 @@
 #' @title Load FRRF Datafiles- UNIVERSAL
 #' @author MB
 #' @param directory Path to the input directory containing .csv files
-# @param verbose honestly I have no idea why this is here
+#' @importFrom stats setNames
+#' @importFrom readr read_lines
 #' @export
 load.LabSTAF <- function(directory) {
   result <- list()
