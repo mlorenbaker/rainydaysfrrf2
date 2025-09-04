@@ -18,7 +18,7 @@ load.LabSTAF <- function(directory) {
 
     lines <- readr::read_lines(file_path)
 
-    # --- find first occurrence of a header
+    #  find first occurrence of a header
     find_section <- function(patterns) {
       idxs <- unlist(lapply(patterns, function(p)
         stringr::str_which(lines, stringr::regex(p, ignore_case = TRUE))
@@ -34,7 +34,7 @@ load.LabSTAF <- function(directory) {
     }
 
 
-    # --- Locate sections by header text
+    #  Locate sections by header text
     notes_start  <- find_section(c("^\\s*File details\\b"))
     params_start <- find_section(c("^\\s*Data processing\\b"))
     rpe_start    <- find_section(c("^\\s*FLC setup\\b"))
@@ -43,7 +43,7 @@ load.LabSTAF <- function(directory) {
     notes_lines <- lines[section_range(notes_start, params_start)]
     params_lines <- lines[section_range(params_start, rpe_start)]
 
-    # --- find the row where the FIRST column starts with "LabSTAF SN"
+    #  find the row where the FIRST column starts with "LabSTAF SN"
     data_end_idx <- which(vapply(lines, function(ln) {
       # convert line to valid UTF-8 (replace bad bytes with "")
       ln_clean <- iconv(ln, from = "", to = "UTF-8", sub = "")
@@ -73,7 +73,7 @@ load.LabSTAF <- function(directory) {
     }
 
 
-    # --- compute line ranges (one past start header to just before next header)
+    #  compute line ranges (one past start header to just before next header)
     section_range2 <- function(start_idx, next_start) {
       if (is.na(start_idx)) return(integer(0))
       end <- if (!is.na(next_start)) next_start - 1 else length(lines)
@@ -81,7 +81,7 @@ load.LabSTAF <- function(directory) {
       seq.int(start_idx + 1, end)
     }
 
-    # ---- Extract Notes ----
+    # - Extract Notes -
     Notes <- data.frame(Note = character(), Value = character(), stringsAsFactors = FALSE)
     if (!is.na(notes_start)) {
       notes_lines <- lines[section_range2(notes_start, params_start)]
@@ -94,7 +94,7 @@ load.LabSTAF <- function(directory) {
       }
     }
 
-    # ---- Extract Params ----
+    # - Extract Params -
     Params <- data.frame(Param = character(), Value = numeric(), stringsAsFactors = FALSE)
     if (!is.na(params_start)) {
       params_lines <- lines[section_range2(params_start, rpe_start)]
@@ -108,7 +108,7 @@ load.LabSTAF <- function(directory) {
       }
     }
 
-    # ---- Extract rPE ----
+    # - Extract rPE -
     rPE <- data.frame(Param = character(), Value = numeric(), stringsAsFactors = FALSE)
     if (!is.na(rpe_start)) {
       rpe_lines <- lines[section_range2(rpe_start, data_start)]
@@ -126,7 +126,7 @@ load.LabSTAF <- function(directory) {
       }
     }
 
-    # ----- function to numeric handle data in the next section for whatever reason (idk)
+    # -- function to numeric handle data in the next section for whatever reason (idk)
     to_numeric_df <- function(df) {
       if (ncol(df) > 1) {
         df[-1] <- lapply(df[-1], function(col) suppressWarnings(as.numeric(col)))
@@ -134,7 +134,7 @@ load.LabSTAF <- function(directory) {
       df
     }
 
-    # ---- Extract Data (Up / Dark / Down) ----
+    # - Extract Data (Up / Dark / Down) -
     Up <- Down <- Dark <- data.frame()
     if (!is.na(data_start)) {
       # use data_end (or EOF if missing) to stop before next section
@@ -184,13 +184,13 @@ load.LabSTAF <- function(directory) {
     }
 
 
-    # ---- Transpose small tables ----
+    # - Transpose small tables -
     Params_t <- if (nrow(Params)) as.data.frame(t(setNames(Params$Value, Params$Param))) else NULL
     rPE_t    <- if (nrow(rPE))    as.data.frame(t(setNames(rPE$Value, rPE$Param)))       else NULL
     Notes_t  <- if (nrow(Notes))  as.data.frame(t(setNames(Notes$Value, Notes$Note)))    else NULL
 
 
-    # ---- Store ----
+    # - Store -
     result[[file_name]] <- list(
       Params   = Params_t,
       Notes    = Notes_t,
