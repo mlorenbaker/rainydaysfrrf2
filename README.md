@@ -69,12 +69,8 @@ The rP-E files are structured differently based on your specific settings. The l
 
 
 ```{r}
-frrf = load.LabSTAF_DJB("input directory")
+frrf = load.LabSTAF("input directory")
 
-frrf = load.LabSTAF_ASLO25("input directory")
-
-# The 'DJB' here is the initials of the person this specific function is written for
-# The 'ASLO25' is an example of the specific function written for a project of mine
 
 ```
 
